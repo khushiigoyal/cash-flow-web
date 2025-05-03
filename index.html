@@ -8,22 +8,24 @@
 </head>
 <body>
 
-  <h1>Cash Flow Minimizer</h1>
+  <div class="container">
+    <h1>💰 Cash Flow Minimizer</h1>
 
-  <label for="transactions">Enter transactions (e.g., 0 1 100):</label>
-  <textarea id="transactions" placeholder="Format: from to amount, one per line"></textarea>
+    <label for="transactions">Enter transactions (one per line):</label>
+    <textarea id="transactions" placeholder="Example: 0 1 100"></textarea>
 
-  <button onclick="minimizeCashFlow()">Minimize Cash Flow</button>
+    <button onclick="minimizeCashFlow()">Calculate</button>
 
-  <div id="output">
-    <h2>Optimized Transactions:</h2>
-    <ul id="result"></ul>
+    <div id="output">
+      <h2>💡 Optimized Transactions:</h2>
+      <ul id="result"></ul>
+    </div>
   </div>
 
   <script>
     function minimizeCashFlow() {
       const input = document.getElementById("transactions").value.trim().split("\n");
-      const n = 100; // assume max 100 people
+      const n = 100;
       const balance = Array(n).fill(0);
 
       input.forEach(line => {
@@ -38,6 +40,7 @@
       });
 
       const result = [];
+
       function getMin(arr) {
         let min = 0;
         for (let i = 1; i < arr.length; i++) {
@@ -64,7 +67,7 @@
         balance[maxCreditor] -= minAmount;
         balance[maxDebtor] += minAmount;
 
-        result.push(`${maxDebtor} pays ${minAmount} to ${maxCreditor}`);
+        result.push(`${maxDebtor} pays ₹${minAmount} to ${maxCreditor}`);
         settle();
       }
 
