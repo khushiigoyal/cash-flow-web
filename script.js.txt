@@ -1,0 +1,69 @@
+function minimizeCashFlow() {
+  const input = document.getElementById("input").value.trim().split("\n");
+  const transactions = [];
+  let maxPerson = 0;
+
+  input.forEach(line => {
+    const parts = line.trim().split(/\s+/);
+    if (parts.length === 3) {
+      const from = parseInt(parts[0]);
+      const to = parseInt(parts[1]);
+      const amount = parseInt(parts[2]);
+      if (!isNaN(from) && !isNaN(to) && !isNaN(amount)) {
+        transactions.push({ from, to, amount });
+        maxPerson = Math.max(maxPerson, from, to);
+      }
+    }
+  });
+
+  const net = Array(maxPerson + 1).fill(0);
+
+  transactions.forEach(({ from, to, amount }) => {
+    net[from] -= amount;
+    net[to] += amount;
+  });
+
+  const result = [];
+
+  function getMinIndex(arr) {
+    let min = Infinity, idx = -1;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] < min) {
+        min = arr[i];
+        idx = i;
+      }
+    }
+    return idx;
+  }
+
+  function getMaxIndex(arr) {
+    let max = -Infinity, idx = -1;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > max) {
+        max = arr[i];
+        idx = i;
+      }
+    }
+    return idx;
+  }
+
+  function settleDebts(net) {
+    const mxCredit = getMaxIndex(net);
+    const mxDebit = getMinIndex(net);
+
+    if (net[mxCredit] === 0 && net[mxDebit] === 0) return;
+
+    const min = Math.min(-net[mxDebit], net[mxCredit]);
+    net[mxCredit] -= min;
+    net[mxDebit] += min;
+
+    result.push(`Person ${mxDebit} pays ₹${min} to Person ${mxCredit}`);
+    settleDebts(net);
+  }
+
+  settleDebts(net);
+
+  document.getElementById("output").innerHTML = result.length
+    ? result.map(r => `<p>${r}</p>`).join("")
+    : "<p>No transactions to optimize.</p>";
+}

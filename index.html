@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cash Flow Minimizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1><span class="icon">💰</span> Cash Flow Minimizer</h1>
+    <label for="input">Enter transactions (one per line):</label>
+    <textarea id="input" placeholder="Format: from to amount (e.g. 0 1 100)"></textarea>
+    <button onclick="minimizeCashFlow()">Calculate</button>
+
+    <div class="output">
+      <h2><span class="icon">💡</span> Optimized Transactions:</h2>
+      <div id="output"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
