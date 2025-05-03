@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cash Flow Minimizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Cash Flow Minimizer</h1>
+
+  <form id="flowForm">
+    <label for="input">Enter transactions (e.g., 0 1 100):</label>
+    <textarea
+      id="input"
+      placeholder="Format: from to amount, one per line"
+    ></textarea>
+    <br />
+    <input type="submit" value="Minimize Cash Flow" />
+  </form>
+
+  <h2>Optimized Transactions:</h2>
+  <ul id="output"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>

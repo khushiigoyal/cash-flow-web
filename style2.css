@@ -1,0 +1,96 @@
+/* Base styles */
+body {
+  background: linear-gradient(135deg, #e0f7fa, #e6e6fa);
+  font-family: 'Segoe UI', sans-serif;
+  color: #023047;
+  padding: 40px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #2a9d8f;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+textarea {
+  width: 100%;
+  max-width: 600px;
+  height: 120px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #2a9d8f;
+  background-color: #f0f8ff;
+  resize: none;
+  margin-bottom: 20px;
+}
+
+input[type="submit"] {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #e63946;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: #6a4c93;
+}
+
+ul {
+  list-style-type: square;
+  max-width: 600px;
+  margin: 20px auto;
+  padding-left: 20px;
+}
+
+li {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+/* Center form */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 12px 0;
+  }
+}
