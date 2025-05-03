@@ -4,24 +4,81 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cash Flow Minimizer</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <h1>Cash Flow Minimizer</h1>
 
-  <form id="flowForm">
-    <label for="input">Enter transactions (e.g., 0 1 100):</label>
-    <textarea
-      id="input"
-      placeholder="Format: from to amount, one per line"
-    ></textarea>
-    <br />
-    <input type="submit" value="Minimize Cash Flow" />
-  </form>
+  <label for="transactions">Enter transactions (e.g., 0 1 100):</label>
+  <textarea id="transactions" placeholder="Format: from to amount, one per line"></textarea>
 
-  <h2>Optimized Transactions:</h2>
-  <ul id="output"></ul>
+  <button onclick="minimizeCashFlow()">Minimize Cash Flow</button>
 
-  <script src="script.js"></script>
+  <div id="output">
+    <h2>Optimized Transactions:</h2>
+    <ul id="result"></ul>
+  </div>
+
+  <script>
+    function minimizeCashFlow() {
+      const input = document.getElementById("transactions").value.trim().split("\n");
+      const n = 100; // assume max 100 people
+      const balance = Array(n).fill(0);
+
+      input.forEach(line => {
+        const parts = line.trim().split(" ");
+        if (parts.length === 3) {
+          const from = parseInt(parts[0]), to = parseInt(parts[1]), amount = parseInt(parts[2]);
+          if (!isNaN(from) && !isNaN(to) && !isNaN(amount)) {
+            balance[from] -= amount;
+            balance[to] += amount;
+          }
+        }
+      });
+
+      const result = [];
+      function getMin(arr) {
+        let min = 0;
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i] < arr[min]) min = i;
+        }
+        return min;
+      }
+
+      function getMax(arr) {
+        let max = 0;
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i] > arr[max]) max = i;
+        }
+        return max;
+      }
+
+      function settle() {
+        const maxCreditor = getMax(balance);
+        const maxDebtor = getMin(balance);
+
+        if (balance[maxCreditor] === 0 && balance[maxDebtor] === 0) return;
+
+        const minAmount = Math.min(-balance[maxDebtor], balance[maxCreditor]);
+        balance[maxCreditor] -= minAmount;
+        balance[maxDebtor] += minAmount;
+
+        result.push(`${maxDebtor} pays ${minAmount} to ${maxCreditor}`);
+        settle();
+      }
+
+      settle();
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "";
+      result.forEach(txn => {
+        const li = document.createElement("li");
+        li.textContent = txn;
+        resultDiv.appendChild(li);
+      });
+    }
+  </script>
+
 </body>
 </html>
